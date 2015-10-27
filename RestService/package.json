@@ -1,0 +1,23 @@
+{
+  "name": "aprsApplication",
+  "version": "0.0.1",
+  "description": "APRS application",
+  "repository": "https://github.com/paularmstrong/node-templates.git",
+  "author": "Isaac Rose <isaacdrose@gmail.com>",
+  "dependencies": {
+    "aprs": "1.0.3",
+    "ax25": "1.1.2",
+    "express": "^4.13.3",
+    "forever": "0.15.1",
+    "forever-service": "0.5.4",
+    "nmea-0183": "0.0.7",
+    "q": "^1.4.1",
+    "serialport": "1.7.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-util": "^3.0.7",
+    "webpack": "^1.12.2"
+  }
+}

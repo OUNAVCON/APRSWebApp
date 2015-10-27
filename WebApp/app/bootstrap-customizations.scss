@@ -1,0 +1,21 @@
+/*Colors*/
+$primary-color: #247ba0;
+$secondary-color: #70c1b3;
+$accent-color: #f25fc5;
+$background-color: #ffe066;
+$text-color: #50514f;
+
+body {
+  color: $text-color;
+  background-color: $secondary-color !important;
+}
+
+$jumbotron-color: $primary-color;
+$jumbotron-bg: $background-color;
+
+$panel-default-heading-bg: $primary-color;
+$panel-footer-bg: $primary-color;
+$panel-bg: #eee;
+.panel-title, .panel-footer {
+  color: $panel-bg !important;
+}
