@@ -11,11 +11,14 @@ export default class Title extends React.Component {
     <div className="jumbotron">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-12">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-md-12">
-                <h4>{this.props.title}</h4>
+                <div className="col-md-2">
+                     {this.props.title}
+                </div>
+                <div className="col-md-1 col-md-offset-9">
+                    {this.props.callsign}
                 </div>
               </div>
               <div className="row">
@@ -26,9 +29,7 @@ export default class Title extends React.Component {
             </div>
           </div>
 
-          <div className="col-md-1 col-md-offset-11">
-            {this.props.callsign}
-          </div>
+
 
         </div>
       </div>

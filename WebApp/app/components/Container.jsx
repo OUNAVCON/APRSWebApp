@@ -9,7 +9,7 @@ export default class Container extends React.Component {
         <Title
           title="APRS"
           subtitle="Automatic Packet Reporting System"
-          callsign='KD8MNV'
+          callsign={this.props.callsign}
         />
 
        

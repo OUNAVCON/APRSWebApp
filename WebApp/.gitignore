@@ -32,3 +32,4 @@ node_modules
 
 # Holds secret info
 openWeatherMap.js
+userConfig.js
