@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import Title from './Title.jsx';
+import Weather from './Weather.jsx';
 
 export default class Container extends React.Component {
   render() {
@@ -11,35 +12,17 @@ export default class Container extends React.Component {
           subtitle="Automatic Packet Reporting System"
           callsign={this.props.callsign}
         />
-
+       <div className="container-fluid">
+       <div className="row">
+       <div className="col-md-2">
+       <Weather></Weather>
+       </div>
+       </div>
+       </div>
        
       </div>
     );
   }
-  state = {
-    listings: []
-  }
- 
-
-  translate = (text) => {
-    Axios.get(this.props.url, {
-      params: {
-        term: text
-      },
-      headers: {
-        'X-Mashape-Key': this.props.openWeatherKey
-      }
-    })
-    .then((response) => {
-      this.setState({
-        listings: response.data.list
-      });
-    })
-    .catch((response) => {
-      console.error(response);
-    });
-  }
-
 
 };
 
