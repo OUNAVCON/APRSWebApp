@@ -9,7 +9,7 @@ export default class Title extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
-{this.currentWeather.main.temp}
+          {this.state.currentWeather.main ? this.getWeatherView() : <span> No Temp yet</span>}
           </div>
         </div>
       </div>
@@ -17,12 +17,22 @@ export default class Title extends React.Component {
   }
 
 
+
+
+  state = {
+    currentWeather: {}
+  }
+
   componentDidMount = () => {
    this.getCurrentWeatherData();
   }
 
-  state = {
-    currentWeather: {}
+  getWeatherView(){
+    return <div>
+      {this.state.currentWeather.main.temp}
+       <img src = {this.createIconUrl(this.state.currentWeather.weather[0].icon)}>
+        </img>
+      </div>;
   }
 
   createUrlLatLong(){
@@ -50,7 +60,8 @@ export default class Title extends React.Component {
       this.setState({
          currentWeather: response.data
       });
-      console.log(response.data);
+
+      return response.data;
     })
     .catch((response) => {
       console.error(response);
