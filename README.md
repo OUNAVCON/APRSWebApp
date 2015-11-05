@@ -1,3 +1,8 @@
+#Architecture
+![Alt text](/documentation/SystemArchitecture.png "Overview")
+
+
+
 # APRSWebApp
 >Configuration and UI for APRS on a beagle bone black.
 
