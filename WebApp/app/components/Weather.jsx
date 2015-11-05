@@ -9,7 +9,8 @@ export default class Title extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
-          {this.state.currentWeather.main ? this.getWeatherView() : <span> No Temp yet</span>}
+          {this.state.currentWeather.main ? this.getWeatherView() : <span> data is unavailable</span>}
+          {this.state.weatherUpDate}
           </div>
         </div>
       </div>
@@ -17,14 +18,20 @@ export default class Title extends React.Component {
   }
 
 
-
-
   state = {
-    currentWeather: {}
+    currentWeather: {},
+    weatherUpDate: "hello"
   }
 
   componentDidMount = () => {
-   this.getCurrentWeatherData();
+    var self = this;
+    this.getCurrentWeatherData();
+    this.timer =  setInterval(this.getCurrentWeatherData.bind(this), 300000);
+  }
+
+  componentWillUnmount = () =>{
+    clearInterval(this.timer);
+    console.log("Module Unmounted");
   }
 
   getWeatherView(){
@@ -57,10 +64,12 @@ export default class Title extends React.Component {
       }
     })
     .then((response) => {
-      this.setState({
-         currentWeather: response.data
-      });
-
+      console.log(response.data);
+        var d = new Date();
+         this.setState({
+            currentWeather: response.data,
+            weatherUpDate: d.toLocaleString()
+         });
       return response.data;
     })
     .catch((response) => {
