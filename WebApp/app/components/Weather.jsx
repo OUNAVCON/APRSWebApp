@@ -6,11 +6,19 @@ export default class Title extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
-          <div className="col-md-12">
-          {this.state.currentWeather.main ? this.getWeatherView() : <span> data is unavailable</span>}
-          {this.state.weatherUpDate}
+          <div className="col-md-3">
+           <div className="panel panel-default">
+              <div className="panel-heading">
+                <h3 className="panel-title">
+                  Current Weather
+                </h3>
+              </div>
+              <div className="panel-body">
+               {this.state.currentWeather.main ? this.getWeatherView() : <span> data is unavailable</span>}
+              </div>
+           </div>
           </div>
         </div>
       </div>
@@ -20,7 +28,7 @@ export default class Title extends React.Component {
 
   state = {
     currentWeather: {},
-    weatherUpDate: "hello"
+    weatherUpDate: ""
   }
 
   componentDidMount = () => {
@@ -31,19 +39,91 @@ export default class Title extends React.Component {
 
   componentWillUnmount = () =>{
     clearInterval(this.timer);
-    console.log("Module Unmounted");
   }
 
+
   getWeatherView(){
-    return <div>
-      {this.state.currentWeather.main.temp}
-       <img src = {this.createIconUrl(this.state.currentWeather.weather[0].icon)}>
-        </img>
-      </div>;
+    var timestamp = this.state.weatherUpDate.split(',');
+
+    return <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-6 col-md-offset-3">
+          <img src = {this.createIconUrl(this.state.currentWeather.weather[0].icon)}/>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12 col-md-offset-3">
+           {this.state.currentWeather.weather[0].description}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6 col-md-offset-3">
+          {this.state.currentWeather.name},{this.state.currentWeather.sys.country}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+         Temperature: 
+         </div>
+         <div className="col-md-6">
+             {this.state.currentWeather.main.temp} F
+         </div>
+      </div>
+      <div className="row">
+         <div className="col-md-6">
+            Humidity: 
+         </div>
+         <div className="col-md-6">
+            {this.state.currentWeather.main.humidity} %
+         </div>
+      </div>
+      <div className="row">
+         <div className="col-md-6">
+         Pressure: 
+          </div>
+         <div className="col-md-6">
+         {this.state.currentWeather.main.pressure} "/hg
+         </div>
+      </div>
+      {this.state.currentWeather.rain ? 
+         <div className="row">
+             <div className="col-md-6">
+               Rain: 
+             </div>
+             <div className="col-md-6">
+                {this.state.currentWeather.rain['3h']}"
+             </div>
+         </div>
+      : '' }
+      <div className="row">
+          <div className="col-md-6">
+            Wind Speed: 
+          </div>
+         <div className="col-md-6">
+            {this.state.currentWeather.wind.speed} MPH
+         </div>
+      </div>
+      <div className="row">
+         <div className="col-md-6">
+            Wind Angle: 
+         </div>
+         <div className="col-md-6">
+            {this.state.currentWeather.wind.deg} deg
+         </div>
+      </div>
+      <div className="row">
+         <div className="col-md-6">
+            {timestamp[0]}
+         </div>
+          <div className="col-md-6">
+            {timestamp[1]}
+          </div>
+      </div>
+    </div>
   }
 
   createUrlLatLong(){
- // url: 'http://api.openweathermap.org/data/2.5/forecast/city?' //'http://api.openweathermap.org/data/2.5/forecast/city?id={this.cityId}&APPID={this.key}'
+     // url: 'http://api.openweathermap.org/data/2.5/forecast/city?' //'http://api.openweathermap.org/data/2.5/forecast/city?id={this.cityId}&APPID={this.key}'
   return OpenWeatherMap.urlLatLong + 'lat=' + OpenWeatherMap.baseLattitude  + '&lon='+ OpenWeatherMap.baseLongitude + '&units=' + OpenWeatherMap.units + '&APPID='+ OpenWeatherMap.key;
   }
 
@@ -56,6 +136,17 @@ export default class Title extends React.Component {
   	return OpenWeatherMap.iconUrl + icon + '.png';
   }
 
+   createRainHtml(){
+   return  <div className="row">
+             <div className="col-md-6">
+               Rain: 
+             </div>
+             <div className="col-md-6">
+                {this.state.currentWeather.rain['3h']}
+             </div>
+         </div>
+  }
+
   getCurrentWeatherData(){
    Axios.get(this.createUrlLatLong(), {
       params: {
@@ -64,8 +155,8 @@ export default class Title extends React.Component {
       }
     })
     .then((response) => {
-      console.log(response.data);
         var d = new Date();
+        console.log(response.data);
          this.setState({
             currentWeather: response.data,
             weatherUpDate: d.toLocaleString()

@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
                     Footer
                 </div>
                 <div className="col-md-1 col-md-offset-9">
-                    footer
+                   <span className="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                 </div>
               </div>
             </div>
